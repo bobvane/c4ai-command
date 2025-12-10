@@ -1,722 +1,356 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Network - Protect Earth</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary: #2e7d32;
-            --secondary: #4caf50;
-            --accent: #8bc34a;
-            --light: #e8f5e9;
-            --dark: #1b5e20;
-            --text: #333333;
-            --white: #ffffff;
-        }
-
-        body {
-            background-color: var(--light);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        .logo i {
-            font-size: 2rem;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 2rem;
-        }
-
-        nav ul li a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 0;
-            position: relative;
-        }
-
-        nav ul li a:hover {
-            color: var(--accent);
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: var(--white);
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--white);
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--accent);
-            border-radius: 2px;
-        }
-
-        .section-title p {
-            color: var(--text);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-img {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-img img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .about-img:hover img {
-            transform: scale(1.05);
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .stat-item i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .stat-item h3 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            color: var(--text);
-        }
-
-        .initiatives {
-            background-color: var(--white);
-        }
-
-        .initiatives-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .initiative-card {
-            background-color: var(--light);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .initiative-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .initiative-img {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .initiative-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .initiative-card:hover .initiative-img img {
-            transform: scale(1.1);
-        }
-
-        .initiative-content {
-            padding: 1.5rem;
-        }
-
-        .initiative-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .initiative-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        .cta {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            text-align: center;
-            padding: 5rem 0;
-        }
-
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta .btn {
-            background-color: var(--white);
-            color: var(--primary);
-        }
-
-        .cta .btn:hover {
-            background-color: var(--accent);
-            color: var(--white);
-        }
-
-        footer {
-            background-color: var(--dark);
-            color: var(--white);
-            padding: 3rem 0 1rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-column h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--accent);
-        }
-
-        .footer-column p {
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links li a {
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links li a:hover {
-            color: var(--accent);
-            padding-left: 5px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background-color: var(--accent);
-            transform: translateY(-5px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .initiatives-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary);
-                flex-direction: column;
-                padding: 1rem 0;
-                text-align: center;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            }
-            
-            nav ul.active {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 0;
-                padding: 0.8rem 0;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .initiatives-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animation for stats counter */
-        .counter {
-            transition: all 0.5s ease;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>C4AI Command（CohereLabs/c4ai-command）</title>
+  <style>
+    /* 现代简洁样式，便于直接部署 */
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#6ee7b7;
+      --glass: rgba(255,255,255,0.03);
+      --radius:12px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071020 0%, #071224 100%);color:#e6eef6}
+    .wrap{max-width:980px;margin:36px auto;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:16px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    header{display:flex;gap:16px;align-items:center}
+    .logo{
+      width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#12263b,#0b2b3a);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);font-size:18px;
+      box-shadow:0 4px 18px rgba(8,14,22,0.6);
+    }
+    h1{margin:0;font-size:20px}
+    p.lead{margin:6px 0 18px;color:var(--muted);font-size:13px}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    .card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 4px 18px rgba(2,6,23,0.5)}
+    label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+    textarea{width:100%;min-height:160px;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:var(--glass);color:inherit;resize:vertical;font-size:14px}
+    .controls{display:flex;gap:8px;margin-top:10px;align-items:center}
+    .btn{background:linear-gradient(90deg,#0ea5a0,#06b6d4);border:none;padding:10px 14px;border-radius:10px;color:#042029;cursor:pointer;font-weight:600}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .small{padding:8px 10px;font-size:13px}
+    .meta{font-size:13px;color:var(--muted);margin-top:8px}
+    .output{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#04101a;padding:14px;border-radius:8px;min-height:120px;color:#d8f3e6}
+    .example-list{display:flex;flex-direction:column;gap:10px}
+    .example{background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;font-size:13px;cursor:pointer;border:1px solid transparent}
+    .example:hover{border-color:rgba(255,255,255,0.04)}
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+    .row{display:flex;gap:8px;align-items:center}
+    .select, input[type="text"]{padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit;font-size:13px}
+    .status{font-size:13px;color:var(--muted);margin-left:auto}
+    .spinner{width:18px;height:18px;border-radius:50%;border:3px solid rgba(255,255,255,0.08);border-top-color:var(--accent);animation:spin 1s linear infinite;display:inline-block;vertical-align:middle}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .link{color:var(--accent);text-decoration:none}
+    .note{font-size:12px;color:var(--muted);margin-top:8px}
+  </style>
 </head>
 <body>
-    <!-- Header -->
+  <div class="wrap" role="main">
     <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <i class="fas fa-seedling"></i>
-                <span>Green Network</span>
-            </div>
-            <nav>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#initiatives">Initiatives</a></li>
-                    <li><a href="#get-involved">Get Involved</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
+      <div class="logo">C4A</div>
+      <div>
+        <h1>C4AI Command（CohereLabs / c4ai-command）</h1>
+        <p class="lead">Hugging Face Space 的主要交互（输入提示 → 发送到模型 → 显示输出）。实际调用需要替换 API Key 与模型 endpoint。页面自带 mock 模式方便离线测试。</p>
+      </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1>Protect Our Planet, Preserve Our Future</h1>
-            <p>Join the global movement to create a sustainable world through conservation, education, and community action.</p>
-            <a href="#get-involved" class="btn">Join Our Network</a>
-        </div>
-    </section>
+    <div style="height:18px"></div>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Green Network</h2>
-                <p>We are a global community dedicated to environmental protection and sustainable development.</p>
-            </div>
-            <div class="about-content">
-                <div class="about-img">
-                    <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Team planting trees">
-                </div>
-                <div class="about-text">
-                    <h3>Our Mission</h3>
-                    <p>Green Network is committed to creating a sustainable future by protecting natural ecosystems, promoting renewable energy, and empowering communities to take environmental action.</p>
-                    <p>Founded in 2010, we've grown from a small grassroots organization to an international network with over 50,000 members across 120 countries.</p>
-                    <p>Our approach combines scientific research, community engagement, and policy advocacy to address the most pressing environmental challenges of our time.</p>
-                    <a href="#" class="btn">Learn More</a>
-                </div>
-            </div>
-            <div class="stats">
-                <div class="stat-item">
-                    <i class="fas fa-tree"></i>
-                    <h3 class="counter" data-target="2500000">0</h3>
-                    <p>Trees Planted</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-users"></i>
-                    <h3 class="counter" data-target="50000">0</h3>
-                    <p>Active Members</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-globe-americas"></i>
-                    <h3 class="counter" data-target="120">0</h3>
-                    <p>Countries Reached</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-recycle"></i>
-                    <h3 class="counter" data-target="1500">0</h3>
-                    <p>Cleanup Projects</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="grid">
+      <div>
+        <div class="card">
+          <label for="prompt">Prompt（输入指令 / 提示）</label>
+          <textarea id="prompt" placeholder="在此输入你的指令或提示，例如：帮我写一段 200 字的产品介绍，面向企业用户。"></textarea>
 
-    <!-- Initiatives Section -->
-    <section class="initiatives" id="initiatives">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Initiatives</h2>
-                <p>Discover the key programs and projects we're implementing to protect our planet.</p>
-            </div>
-            <div class="initiatives-grid">
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://dialogue.earth/content/uploads/2021/04/lessons-from-the-rush-to-reforest-china-dialogue-2400x1599.jpg" alt="Reforestation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Global Reforestation</h3>
-                        <p>Planting millions of trees worldwide to restore ecosystems, combat climate change, and protect biodiversity.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Ocean Conservation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Ocean Conservation</h3>
-                        <p>Protecting marine ecosystems, reducing plastic pollution, and promoting sustainable fishing practices.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80" alt="Renewable Energy">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Renewable Energy</h3>
-                        <p>Promoting solar, wind, and other clean energy sources to reduce dependence on fossil fuels.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+          <div class="controls">
+            <button id="run" class="btn">运行（Run）</button>
+            <button id="clear" class="btn secondary small">清空</button>
 
-    <!-- CTA Section -->
-    <section class="cta" id="get-involved">
-        <div class="container">
-            <h2>Join Our Global Movement</h2>
-            <p>Together, we can create a sustainable future for generations to come. Every action counts, no matter how small.</p>
-            <a href="#" class="btn">Become a Member</a>
-        </div>
-    </section>
+            <div style="margin-left:auto" class="row">
+              <label style="margin:0 8px 0 0">模式</label>
+              <select id="mode" class="select">
+                <option value="mock">Mock（离线演示）</option>
+                <option value="hf">Hugging Face Inference API</option>
+              </select>
+            </div>
+          </div>
 
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Green Network</h3>
-                    <p>We are dedicated to protecting our planet through collaborative action, education, and sustainable solutions.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#initiatives">Initiatives</a></li>
-                        <li><a href="#get-involved">Get Involved</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Our Programs</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Reforestation</a></li>
-                        <li><a href="#">Ocean Cleanup</a></li>
-                        <li><a href="#">Wildlife Protection</a></li>
-                        <li><a href="#">Climate Education</a></li>
-                        <li><a href="#">Sustainable Agriculture</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Copper Creek Drive, New York</p>
-                    <p><i class="fas fa-phone"></i> +1 (312) 171-0771</p>
-                    <p><i class="fas fa-envelope"></i> support@greennetwork.org</p>
-                </div>
+          <div class="meta">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div>模型 endpoint: <code id="endpoint">CohereLabs/c4ai-command</code></div>
+              <div style="margin-left:auto" class="status" id="status">未调用</div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2025 Green Network. All rights reserved.</p>
+            <div class="note">
+              使用 Hugging Face Inference API 时，需要在下方填入你的 API Key（Bearer token）。如果你使用的是 Space 的后端（非公开 API），可能无法直接用本页调用 —— 在这种情况下请用 Space 自带 UI 或自行部署后端。
             </div>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <label for="hfkey">Hugging Face API Key（可选）：</label>
+          <input id="hfkey" placeholder="填入 HF API key 可直接调用模型（Bearer token）" style="width:100%" />
+
+          <div style="height:12px"></div>
+
+          <label>参数（可选）</label>
+          <div style="display:flex;gap:8px">
+            <input id="max_tokens" class="select" type="text" placeholder="max_tokens (默认 256)" />
+            <input id="temperature" class="select" type="text" placeholder="temperature (0.0 - 1.2)" />
+          </div>
+
+          <div style="height:14px"></div>
+
+          <label>输出</label>
+          <div class="output" id="output">等待运行…</div>
+
+          <div style="height:12px"></div>
+
+          <div class="row" style="justify-content:flex-end">
+            <button id="copyOutput" class="btn secondary small">复制输出</button>
+            <button id="downloadBtn" class="btn small" style="margin-left:8px">下载结果（txt）</button>
+          </div>
         </div>
+
+        <div style="height:14px"></div>
+
+        <div class="card">
+          <label>示例与快速提示（点击填充到输入框）</label>
+          <div class="example-list" id="examples">
+            <div class="example" data-prompt="给我写一段面向企业用户的 200 字产品文案，语气专业。">写企业产品文案（200 字）</div>
+            <div class="example" data-prompt="将下面的句子改写为更礼貌的邮件开头：尊敬的张先生，我想...">改写为礼貌邮件开头</div>
+            <div class="example" data-prompt="根据以下需求生成测试用例：用户能注册、登录并重置密码。">生成测试用例</div>
+            <div class="example" data-prompt="将下面的技术段落翻译为英文并保持专业术语：...">翻译技术段落（中→英）</div>
+          </div>
+        </div>
+
+      </div>
+
+      <aside>
+        <div class="card">
+          <label>页面信息</label>
+          <p style="margin:8px 0;color:var(--muted);font-size:13px">
+            静态复制： <strong>C4AI Command（CohereLabs / c4ai-command）</strong><br>
+            来源：Hugging Face Space（UI 仅模仿）。本文件不会自动抓取 Space 上的动态文件或脚本。
+          </p>
+
+          <div style="height:10px"></div>
+
+          <label>快速配置</label>
+          <ol style="color:var(--muted);font-size:13px">
+            <li>若要直接调用模型，请选择模式 → Hugging Face Inference API，并在上方填入你的 HF API Key。</li>
+            <li>如果你有自建后端，请把 <code>sendToHfInference()</code> 中的 endpoint 替换为你的服务地址。</li>
+            <li>如需将页面部署至静态站点（Netlify / Vercel 等），把此单文件上传即可。</li>
+          </ol>
+
+          <div style="height:10px"></div>
+
+          <label>注意</label>
+          <p class="note">本页面为静态复刻，仅用于本地测试与展示。若需要完全复制 Space 的实时交互（例如文件上传、后端模型管理、GPU 实时推理），必须复刻或接入原始 Space 的后端服务。</p>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="card">
+          <label>常见问题</label>
+          <p style="color:var(--muted);font-size:13px;margin:8px 0">
+            Q：为什么调用失败？<br>
+            A：请检查 API Key、endpoint 是否正确；或确认模型是否对 public API 可用。若 Space 使用私有后端或限定访问，本静态页面无法绕开这些限制。
+          </p>
+
+          <p style="color:var(--muted);font-size:13px"><strong>安全提示：</strong>不要在公共仓库中明文保存你的 HF API Key。</p>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div>静态页面生成于本地 — 如需集成更多功能（文件上传、token 管理、模型选择），我可以继续帮你扩展。</div>
+        <a class="link" href="https://huggingface.co/spaces/CohereLabs/c4ai-command" target="_blank" rel="noopener">原始 Space 页面（Hugging Face）</a>
+      </div>
     </footer>
+  </div>
 
-    <script>
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
-        });
+  <script>
+    // ========== 配置区 ==========
+    // 默认模型 endpoint（仅作为提示）
+    const DEFAULT_MODEL = "CohereLabs/c4ai-command";
 
-        // Counter Animation
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200; // The lower the slower
-            
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                
-                const inc = target / speed;
-                
-                if(count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(animateCounters, 1);
-                } else {
-                    counter.innerText = target;
-                }
-            });
+    // ========== UI 元素 ==========
+    const promptEl = document.getElementById('prompt');
+    const runBtn = document.getElementById('run');
+    const clearBtn = document.getElementById('clear');
+    const outputEl = document.getElementById('output');
+    const modeEl = document.getElementById('mode');
+    const hfKeyEl = document.getElementById('hfkey');
+    const endpointEl = document.getElementById('endpoint');
+    const statusEl = document.getElementById('status');
+    const examples = document.getElementById('examples');
+    const copyBtn = document.getElementById('copyOutput');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    endpointEl.textContent = DEFAULT_MODEL;
+
+    // 点击示例填充
+    examples.addEventListener('click', (ev) => {
+      const row = ev.target.closest('.example');
+      if (!row) return;
+      promptEl.value = row.dataset.prompt || '';
+      promptEl.focus();
+    });
+
+    clearBtn.addEventListener('click', () => {
+      promptEl.value = '';
+      outputEl.textContent = '等待运行…';
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(outputEl.textContent || '');
+        alert('已复制输出到剪贴板');
+      } catch (e) {
+        alert('复制失败：' + e?.message);
+      }
+    });
+
+    downloadBtn.addEventListener('click', () => {
+      const blob = new Blob([outputEl.textContent || ''], {type:'text/plain;charset=utf-8'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'c4ai-command-output.txt';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    // ========== 主逻辑：运行（支持 mock 与 HF Inference API） ==========
+    runBtn.addEventListener('click', async () => {
+      const prompt = promptEl.value.trim();
+      if (!prompt) {
+        alert('请输入 prompt 再运行。');
+        return;
+      }
+
+      // 更新 UI
+      statusEl.innerHTML = '<span class="spinner" aria-hidden="true"></span> 正在运行';
+      runBtn.disabled = true;
+      runBtn.textContent = '运行中…';
+
+      try {
+        const mode = modeEl.value;
+        if (mode === 'mock') {
+          // 简单离线 mock：稍作延迟后返回示例文本
+          const mock = await mockGenerate(prompt);
+          outputEl.textContent = mock;
+          statusEl.textContent = '完成（mock）';
+        } else if (mode === 'hf') {
+          const key = hfKeyEl.value.trim();
+          if (!key) {
+            alert('选择 Hugging Face 模式时需提供 API Key（请在上方输入）。');
+            statusEl.textContent = '中止：无 API Key';
+            runBtn.disabled = false;
+            runBtn.textContent = '运行（Run）';
+            return;
+          }
+          // 读取参数
+          const maxTokens = parseInt(document.getElementById('max_tokens').value) || 256;
+          const temperature = parseFloat(document.getElementById('temperature').value);
+          const params = {};
+          if (!Number.isNaN(maxTokens)) params.max_new_tokens = maxTokens;
+          if (!Number.isNaN(temperature)) params.temperature = temperature;
+
+          try {
+            const respText = await sendToHfInference(DEFAULT_MODEL, key, prompt, params);
+            outputEl.textContent = respText;
+            statusEl.textContent = '完成（Hugging Face）';
+          } catch (err) {
+            outputEl.textContent = '调用失败：' + (err?.message || String(err));
+            statusEl.textContent = '调用失败';
+          }
+        } else {
+          outputEl.textContent = '未知模式';
+          statusEl.textContent = '错误';
         }
+      } finally {
+        runBtn.disabled = false;
+        runBtn.textContent = '运行（Run）';
+      }
+    });
 
-        // Initialize counters when page loads
-        window.addEventListener('load', animateCounters);
+    // ========== Mock 生成器（离线演示，用于测试 UI） ==========
+    async function mockGenerate(prompt) {
+      await sleep(600 + Math.random()*400);
+      // 简单模仿：根据 prompt 生成一个结构化回答
+      const header = '=== Mock 输出（仅作界面演示） ===\\n';
+      const summary = `提示摘要：${prompt.slice(0, 120)}${prompt.length>120 ? '…' : ''}\\n\\n`;
+      const body = `建议回复（示例）：
+- 这是一段自动生成的示例文本，用于演示界面与下载/复制等功能。
+- 若要调用真实模型，请切换到 "Hugging Face Inference API" 模式并填写你的 API Key。
+`;
+      return header + summary + body;
+    }
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    document.querySelector('nav ul').classList.remove('active');
-                }
-            });
-        });
-    </script>
+    // ========== 发送到 Hugging Face Inference API ==========
+    // 注意：Hugging Face 的 Inference API 接受不同格式的请求，下面是通用的示例调用：
+    // POST https://api-inference.huggingface.co/models/{model}
+    // body: { "inputs": "...", "parameters": {...} }
+    // Authorization: Bearer <HF_API_KEY>
+    async function sendToHfInference(model, apiKey, prompt, parameters={}) {
+      const url = `https://api-inference.huggingface.co/models/${encodeURIComponent(model)}`;
+      const body = { inputs: prompt };
+      if (parameters && Object.keys(parameters).length) body.parameters = parameters;
+
+      // 如果模型返回流式数据或特殊格式，需要按模型文档解析；这里简化为普通 JSON/文本返回：
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (!res.ok) {
+        const txt = await res.text();
+        throw new Error(`${res.status} ${res.statusText} — ${txt}`);
+      }
+
+      // 推断返回格式：可能为 JSON（数组或对象），也可能为纯文本
+      const contentType = res.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        const data = await res.json();
+        // 常见返回：[{generated_text: "..."}, ...] 或 {error: "..."} 或字符串
+        if (Array.isArray(data)) {
+          // 拼接所有 generated_text 或字符串字段
+          return data.map(it => (it.generated_text ?? (typeof it === 'string' ? it : JSON.stringify(it)))).join('\\n\\n');
+        } else if (data.generated_text) {
+          return data.generated_text;
+        } else {
+          return JSON.stringify(data, null, 2);
+        }
+      } else {
+        // 纯文本
+        return await res.text();
+      }
+    }
+
+    // ========== 工具函数 ==========
+    function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+
+    // ========== 额外：允许通过 Ctrl+Enter 运行 ==========
+    promptEl.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        runBtn.click();
+      }
+    });
+
+    // 自动填充一个起始示例
+    if (!promptEl.value) promptEl.value = '写一个 150 字的中文产品简介，面向企业用户，强调可靠性与安全性。';
+
+  </script>
 </body>
-
 </html>
